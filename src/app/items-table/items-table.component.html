@@ -1,0 +1,90 @@
+
+
+ <!-- Items  -->
+<div *ngIf="itemsShowing" class="col-12 col-lg-8 col-md-8 m-auto" [@slideFromRight]="shouldAnimate">
+    <div class="col text-right mb-3">
+        <button class="btn btn-light uk-vertical-align-middle" (click)="goToDetails()" [disabled]="detailsBtnDisabled">
+          Details
+          <i class="material-icons align-bottom">keyboard_arrow_right</i>
+        </button>
+    </div>
+    <app-error *ngIf="isItemsEmpty"[message]="errorMessage"></app-error>
+    <div class="table-responsive">
+        <table class="table table-striped table-hover table-dark " *ngIf="!isItemsEmpty">
+            <thead class="thead-dark">
+              <tr>
+                <th scope="col">#</th>
+                <th scope="col">Image</th>
+                <th scope="col">Title</th>
+                <th scope="col">Price</th>
+                <th scope="col">Shipping</th>
+                <th scope="col">Zip</th>
+                <th scope="col">Seller</th>
+                <th scope="col">Wish List</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let item of pages[currentPage]; let i=index" [ngClass]="getClass(item.itemId)" > 
+                <th scope="row">{{(currentPage * 10)+i +1}}</th>
+                <!-- IMAGE -->
+                <td>
+                  <img src={{item.image}} alt="..."  width="100" height="100">
+                </td>
+                <!-- TITLE -->
+                <td>
+                    <a class="text-primary" (click)="sendItem(item)" data-toggle="tooltip" data-placement="bottom" title={{item.title}}>{{item.shortenedTitle}}</a>
+                </td>
+                <td>{{item.price}}</td>
+                <td>{{item.shipping.cost.value}}</td>
+                <td>{{item.zip}}</td>
+                <!-- Username -->
+                <td>{{item.seller.username.value}}</td>
+                <!-- CART -->
+                <td>
+                  <!-- In Cart -->
+                  <button *ngIf="item.isInCart" (click)="removeFromCart(item)" class="rounded-sm text-warning">
+                    <i class="material-icons">remove_shopping_cart</i>
+                  </button>
+                  <!-- Not In Cart -->
+                  <button *ngIf="!item.isInCart " (click)="addToCart(item)"  class="rounded-sm ">
+                      <i class="material-icons ">add_shopping_cart</i>
+                    </button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+    </div>
+   
+    
+
+ <!-- PAGINATION -->
+      <nav aria-label="Page navigation example" *ngIf="!isItemsEmpty">
+          <ul class="pagination justify-content-center ">
+            <li>
+              <button  [disabled]="prevDisabled" (click)="prevPage()" class="btn btn-light " href="#" aria-label="Previous">
+                <span aria-hidden="true">&laquo;</span>  Previous
+              </button>
+            </li>
+            <li *ngFor="let page of pages; let i=index" >
+              <button (click)="goToPage(i)" class="btn btn-light" [ngClass]="getPageClass(i)" href="#">{{i+1}}</button>
+            </li>
+            <li >
+              <button [disabled]="nextDisabled" (click)="nextPage()" class="btn btn-light " href="#" aria-label="Next">
+                  Next <span aria-hidden="true">&raquo;</span>
+              </button>
+            </li>
+          </ul>
+        </nav>
+</div>
+
+
+
+
+
+
+
+<!-- Detail Tabs -->
+
+<div *ngIf="detailsShowing"  class="col-12 col-lg-8 col-md-8 m-auto" >
+  <app-item [item]="item" (backToList)="goToList()"></app-item>
+</div>

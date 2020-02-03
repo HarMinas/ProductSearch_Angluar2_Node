@@ -1,0 +1,68 @@
+
+<div *ngIf="wishlistShowing" class="col-12 col-lg-8 col-md-8 m-auto" [@slideFromRignt]>
+    <div class="col text-right mb-3">
+        <button class="btn btn-light uk-vertical-align-middle" (click)="goToDetails()" [disabled]="detailsBtnDisabled">
+          Details
+          <i class="material-icons align-bottom">keyboard_arrow_right</i>
+        </button>
+    </div>
+    <app-error *ngIf="wishlistEmpty" [message]="errorMessage"></app-error>
+    <div class="table-responsive">
+        <table class="table table-striped table-dark" *ngIf="!wishlistEmpty">
+            <thead>
+              <tr>
+                <th scope="col">#</th>
+                <th scope="col">Image</th>
+                <th scope="col">Title</th>
+                <th scope="col">Price</th>
+                <th scope="col">Shipping</th>
+                <th scope="col">Zip</th>
+                <th scope="col">Seller</th>
+                <th scope="col">Wish List</th>
+          
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let item of items; let i=index" [ngClass]="getClass(item.itemId)">
+                  <th scope="row">{{i}}</th>
+        
+                     <!-- IMAGE -->
+              <td>
+                  <img src={{item.image}} alt="..." class="" width="100" height="100">
+                </td>
+                <!-- TITLE -->
+                <td>
+                    <a class="text-primary" (click)="sendItem(item)">{{item.shortenedTitle}}</a>
+                </td>
+                <td>{{item.price}}</td>
+                <td>{{item.shipping.cost.value}}</td>
+                <td>{{item.zip}}</td>
+                <!-- Username -->
+                <td>{{item.seller.username.value}}</td>
+                <!-- CART -->
+                <td>
+                  <!-- In Cart -->
+                  <button  (click)="removeFromCart(item)" class="rounded-sm">
+                    <i class="material-icons text-warning">remove_shopping_cart</i>
+                  </button>
+                  
+                </td>
+              </tr>
+              <tr >
+                <td>Total Shopping</td>
+                <td>${{total}}</td>
+              </tr>
+            </tbody>
+          </table>
+    </div>
+  
+</div>
+
+
+
+  
+<!-- Detail Tabs -->
+
+<div *ngIf="detailsShowing" class="col-12 col-lg-8 col-md-8 m-auto">
+    <app-item [item]="item" (backToList)="goToList()"></app-item>
+</div>

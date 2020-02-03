@@ -1,0 +1,35 @@
+
+
+<table class="table table-striped table-dark" >
+    <tbody>
+      <tr *ngIf="shippingDetails.cost">
+        <th scope="row">{{shippingDetails.cost.name}}</th>
+        <td>{{shippingDetails.cost.value}}</td>
+      </tr>
+      <tr *ngIf="shippingDetails.toLocations">
+          <th scope="row">{{shippingDetails.toLocations.name}}</th>
+          <td>{{shippingDetails.toLocations.value}}</td>
+      </tr>
+      <tr *ngIf="shippingDetails.handling">
+          <th scope="row">{{shippingDetails.handling.name}}</th>
+          <td>{{shippingDetails.handling.value}}</td>
+      </tr>
+      <!--  replace value with checkmarks checkmarks -->
+      <tr *ngIf="shippingDetails.expedited">
+          <th scope="row">{{shippingDetails.expedited.name}}</th>
+          <td *ngIf="expedited"><i class="material-icons text-success">done</i></td>
+          <td *ngIf="!expedited"><i class="material-icons text-danger">close</i></td>
+      </tr>
+      <tr *ngIf="shippingDetails.oneDay">
+          <th scope="row">{{shippingDetails.oneDay.name}}</th>
+          <td *ngIf="oneDay"><i class="material-icons text-success">done</i></td>
+          <td *ngIf="!oneDay"><i class="material-icons text-danger">close</i></td>
+      </tr>
+      <tr *ngIf="shippingDetails.returnAccepted">
+          <th scope="row">{{shippingDetails.returnAccepted.name}}</th>
+          <td *ngIf="returnsAccepted"><i class="material-icons text-success">done</i></td>
+          <td *ngIf="!returnsAccepted"><i class="material-icons text-danger">close</i></td>
+      </tr>
+    
+    </tbody>
+  </table>

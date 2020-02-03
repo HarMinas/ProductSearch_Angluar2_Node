@@ -1,0 +1,64 @@
+
+
+<!-- The two dropdowns -->
+<div class="mb-2 text-left">
+    <select [(ngModel)]="filter" (change)="filterChange()" class="custom-select col-lg-3 col-md-3 col-12 form-control-sm ml-3" id="inputGroupSelect01" class="d-inline">
+      <option value="0">Default</option>
+      <option value="1">Product Name</option>
+      <option value="2">Days Left</option>
+      <option value="3">Price</option>
+      <option value="4">Shipping Cost</option>
+    </select> 
+    <select [disabled]="orderDisabled" [(ngModel)]="order" (change)="orderChange()" class="custom-select col-lg-3 col-md-3 col-12 form-control-sm" id="inputGroupSelect01" class="d-inline">
+        <option value="0">Ascending</option>
+        <option value="1">Descending</option>
+    </select>
+</div>
+
+
+
+
+<!-- the first five items -->
+<ul class="list-unstyled">
+    <li *ngFor="let x of iteratorArray; let i = index" class="media bg-dark text-left m-2 p-2" >
+        <img src={{similarItems[i].picture}} alt="" width="100" height="100" >
+      <div class="media-body text-left">
+        <ul  class="list-unstyled pl-5 col-sm-12">
+          <li><a href={{similarItems[i].link}}  class="text-info col-sm-12"> {{similarItems[i].title}}</a></li>
+          <li class="text-success col-sm-12">{{similarItems[i].price.name}}: {{similarItems[i].price.value}}</li>
+          <li class="text-warning col-sm-12">{{similarItems[i].shipping.name}}: {{similarItems[i].shipping.value}}</li>
+          <li class="text-white col-sm-12">{{similarItems[i].daysLeft.name}}: {{similarItems[i].daysLeft.value}}</li>
+        </ul>
+      </div>
+    </li>
+</ul>
+
+  <!-- the rest of the items after the fifth--> 
+<ul *ngIf="showMore" class="list-unstyled" >
+    <li *ngFor="let item of similarItems | slice:6" class="media bg-dark text-left  m-2 p-2 " >
+        <img src={{item.picture}} alt="" width="100" height="100" >
+      <div class="media-body text-left">
+        <ul  class="list-unstyled pl-5 col-sm-12">
+          <li><a href={{item.link}} class="text-info col-sm-12"> {{item.title}}</a></li>
+          <li class="text-success col-sm-12">{{item.price.name}}: {{item.price.value}}</li>
+          <li class="text-warning col-sm-12">{{item.shipping.name}}: {{item.shipping.value}}</li>
+          <li class="text-white col-sm-12">{{item.daysLeft.name}}: {{item.daysLeft.value}}</li>
+        </ul>
+      </div>
+    </li>
+</ul>
+
+<!-- the more button -->
+<div *ngIf="isMoreThanFive" class="row">
+  <div class="col">
+    <button class="btn btn-dark" (click)="showMoreButton()">Show More</button>
+  </div>
+</div>
+
+
+
+
+
+
+
+

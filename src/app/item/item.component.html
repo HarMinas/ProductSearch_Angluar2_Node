@@ -1,0 +1,88 @@
+
+<!-- Item Title -->
+<div class="row">
+  <div class="col text-center h3 p-4">
+      {{item.title}}
+  </div>
+</div>
+<!-- List, Facebook, and addToCart Buttons -->
+<div class="row">
+      <div class=" col-6 text-left">
+          <button class="btn btn-light" (click)="backToListClicked()">
+            <i class="material-icons align-bottom">keyboard_arrow_left</i>
+            List</button>
+      </div>
+      <div class="col-6 text-right">
+        <button class="btn" (click)="postOnFacebook()"><img src="http://csci571.com/hw/hw8/Images/facebook.png" alt="" width="50px"></button>
+        <button *ngIf="item.isInCart" class="btn " (click)="removeFromCart()">
+          <i class="material-icons text-warning h1"> remove_shopping_cart</i>
+        </button>
+        <button *ngIf="!item.isInCart" class="btn" (click)="addToCart()">
+          <i class="material-icons h1"> add_shopping_cart</i>
+        </button>
+
+      </div>
+</div>
+
+
+
+<!-- Tabs - products,photos, shipping, seller, similar -->
+<ul class="nav nav-tabs justify-content-end mb-4">
+    <li class="nav-item" [ngClass]="getTabClass('0')">
+        <a class="nav-link " (click)="goTo(tabs.products)">Products</a>
+    </li>
+    <li class="nav-item" [ngClass]="getTabClass('1')">
+        <a class="nav-link " (click)="goTo(tabs.photos)">Photos</a>
+
+        <!-- <button type="button" class="btn" (click)="goTo(tabs.photos)">Photos</button> -->
+    </li>
+    <li class="nav-item" [ngClass]="getTabClass('2')">
+        <a class="nav-link " (click)="goTo(tabs.shipping)">Shipping</a>
+
+        <!-- <button type="button" class="btn" (click)="goTo(tabs.shipping)">Shipping</button> -->
+    </li>
+    <li class="nav-item" [ngClass]="getTabClass('3')">
+        <a class="nav-link " (click)="goTo(tabs.seller)">Seller</a>
+        <!-- <button type="button" class="btn" (click)="goTo(tabs.seller)">Seller</button> -->
+    </li>
+    <li class="nav-item show-desktop" [ngClass]="getTabClass('4')">
+        <a class="nav-link " (click)="goTo(tabs.similarProducts)">Similar Products</a>
+    </li>
+    <li class="nav-item show-mobile" [ngClass]="getTabClass('4')">
+        <a class="nav-link" (click)="goTo(tabs.similarProducts)">Related</a>
+    </li>
+
+  </ul>
+
+<!-- Below section to switch  -->
+<div [ngSwitch]="currentTab">
+  <!-- Progress -->
+  <div *ngSwitchCase="tabs.progress">  </div>
+  <!-- Products -->
+  <div *ngSwitchCase="tabs.products" class="row">
+    <div class="col">
+        <app-details [itemDetails]="itemDetails"></app-details>
+    </div>  
+   </div>
+  <!-- Photos -->
+  <div *ngSwitchCase="tabs.photos" class="row">
+    <app-photos [photos]="photos"></app-photos>
+  </div>
+  <!-- Shipping -->
+  <div *ngSwitchCase="tabs.shipping" class="row">
+    <div class="col">
+        <app-shipping [shippingDetails]="shippingDetails"></app-shipping>
+    </div>
+   </div>
+  <!-- Seller -->
+  <div *ngSwitchCase="tabs.seller" class="row">  
+    <div class="col">
+        <app-seller [sellerDetails]="sellerDetails"> </app-seller>
+    </div>   
+  </div>
+  <!-- SimilarPrducts -->
+  <div *ngSwitchCase="tabs.similarProducts" class="row"> 
+      <app-similar *ngIf="similarItemsFound" [similarItems]="similarItems"> </app-similar>
+      <app-error *ngIf="!similarItemsFound" [message] = "errorMessage"></app-error>
+  </div>  
+</div>

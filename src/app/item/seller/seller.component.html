@@ -1,0 +1,76 @@
+
+    <table class="table table-striped table-dark text-left">
+     
+      <thead>
+          <tr>  
+              <th>
+                <div style="transform: translateX(50%)">
+                    {{sellerDetails.username.value}}
+                </div>
+              </th>
+            </tr>
+      </thead>
+    
+        <tbody>
+            
+          <tr *ngIf="sellerDetails.feedbackScore" >
+            <th scope="row">{{sellerDetails.feedbackScore.name}}</th>
+            <td >{{sellerDetails.feedbackScore.value}}</td>
+          </tr>
+          <tr *ngIf="sellerDetails.popularity" >
+              <th scope="row">{{sellerDetails.popularity.name}}</th>
+              <td >
+                <div class="position-relative">
+                  <div class="circle-inner-text">{{sellerDetails.popularity.value}}</div>
+                  <round-progress 
+                  [current]="sellerPopularity"
+                  [max]="maxPopularity"
+                  [color]="color"
+                  [background]="bgColor"
+                  [radius]="radius"
+                  [stroke]="1"
+                  [semicircle]="false"
+                  [rounded]="true"
+                  [clockwise]="false"
+                  [responsive]="false"
+                  >
+                </round-progress>
+
+                </div>
+          
+             </td>
+            </tr>
+    
+    
+          <tr *ngIf="sellerDetails.feedbackStars">
+              <th scope="row" >{{sellerDetails.feedbackStars.name}}</th>
+              <td *ngIf="!highScore" [ngStyle]="{'color': sellerDetails.feedbackStars.value}"><i class="material-icons">star_border</i></td>
+              <td *ngIf="highScore"  [ngStyle]="{'color': 'yellow'}"><i class="material-icons">stars</i></td>
+    
+          </tr>
+    
+          <tr *ngIf="sellerDetails.topRated">
+              <th scope="row" >{{sellerDetails.topRated.name}}</th>
+              <td > 
+                <i *ngIf="topRated" class="material-icons text-success"> done</i>
+                <i *ngIf="!topRated" class="material-icons text-danger"> close</i>
+              </td>
+          </tr>
+    
+          <tr *ngIf="sellerDetails.storeName">
+              <th scope="row">{{sellerDetails.storeName.name}}</th>
+              <td >{{sellerDetails.storeName.value}}</td>
+          </tr>
+    
+           <!-- Add the link Here  -->
+          <tr *ngIf="sellerDetails.storeURL">
+              <th scope="row" >{{sellerDetails.storeURL.name}}</th>
+              <td > <a class="text-info" href={{sellerDetails.storeURL.name}}>Store</a></td>
+          </tr>
+    
+        </tbody>
+      </table>
+    
+
+
+      

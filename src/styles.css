@@ -1,1 +1,52 @@
 /* You can add global styles to this file, and also import other style files */
+@import url("../node_modules/bootstrap/dist/css/bootstrap.css");
+
+@import "~@angular/material/prebuilt-themes/indigo-pink.css";
+
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+
+.highlighet-row{
+    background-color: rgb(200,200,200);
+}
+
+
+.picture-border{
+    border: 5px solid #292929;
+}
+
+.show-mobile{
+    display: none;
+}
+.show-desktop{
+    display: inline-block;
+}
+
+@media only screen and (max-width: 991px){
+    .show-mobile{
+        display: inline-block;
+    }
+    .show-desktop{
+        display: none;
+    }
+}
+
+
+
+
+.circle-inner-text {
+    position: absolute;
+    top: 50%;
+    left:25px;
+    bottom: auto;
+    transform: translateY(-50%) translateX(-50%)
+}
+
+
+
+.top-bottom-border{
+    border-top: 2px solid #454545;
+    border-bottom: 2px solid #454545;
+}
