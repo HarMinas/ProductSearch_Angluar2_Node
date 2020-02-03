@@ -1,0 +1,81 @@
+Overall Structure of the application 
+
+
+
+
+* OVERVIEW
+    1. User enters url.
+    2. Nodejs express servier on AWS serves the client side app to the user.
+    3. Angular front End presents a form and obtains the user location using the geolocation api 
+    4. User enters form data
+    5. Angluar material autocomplete feature helps with zip code entry using Geonames api by communicating with the Node server
+    6. Angular check form validation
+    7. Upon submit, the form data is sent to the nodejs server
+    8. Node server makes api call to Ebay product finding api, pulls revelvant information out of the response and sends refined data to Angular
+    9. Angular receives the data and creates a table with item data in it using pagination. 
+    10. User clicks on the item title, request is sent to the Node to fetch the item details from the Ebay api. 
+    11. Angular creates the details section that contain buttons for displaying parts of thee item details. 
+    12. The photos tab contains data that is returned from nodejs as a result of the fetch to google images api. 
+    13. The facebook button creates a post on facebook containing a link to the ebay store. Node does this using facebook api. 
+    14. Similar Items are displayed when the usier clicks on the similar items key. Nodejs fetches similar items from the ebay api. 
+
+*Data Structures
+    1. Items array - an array of Item objects
+    2. Item object - {
+                        itemID: string,
+                        pictureURL: string, 
+                        title: string, 
+                        price: string, 
+                        shipping: string, 
+                        zip: string, 
+                        isInWishList: bool, 
+                        isSelected: bool
+                     }
+    3. ItemDetails - {
+                        details: {}
+                        photos: [imageUrls], 
+                        shipping: {}
+                        seller: {}
+                    }
+    4. similarItems - [similarItem]
+    5. similarItem - {
+            imageURL: string, 
+            title: string, 
+            price: number, 
+            shippingCost: number, 
+            daysLeft: number
+             }
+
+
+* FRONTENT STRUCTURE. 
+    1. app-component is the root. 
+    2. search-form-component:
+        a. contains the search form. 
+        b. makes http call the the ip-api service to get the users currenrt zip code.
+        c. performs form validation 
+        d. makes http call the the nodejs to implement autocomplete on the custom zip field
+        e. makes http call upon submission of the form to the nodejs.
+        f. returns the results of the items to the app-component when they are returned by the node server.
+        g. returns errors to the app-component if they are passed back from thee nodejs. 
+    3. Items-table-component:
+        a. creates items table using a items array passed in from the app-component.
+        b. Implements pagination logic
+        c. if the item title is clicked, requests itemDetails details from the nodeJS server and gives the ItemDetails to the app-component. 
+    4. ItemDetails-component: 
+        a. composed of tabs to display different parts of the itemDetails object. 
+        b. contains a button named list to navigate back to the items-table-component via app-component.
+    5. similarItems-component:
+        a. takes in an array of similar items and creates a table to hold them.
+        b. contains operations such as sorting the similar items based on similarItem properties. 
+    
+
+
+
+
+
+
+
+
+    
+
+
